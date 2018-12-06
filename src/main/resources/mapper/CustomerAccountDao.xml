@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dbms.triplehao.dao.CustomerAccountDao">
+    <insert id="insertCustomerAccount" useGeneratedKeys="true" keyProperty="customerId" keyColumn="customer_id" parameterType="com.dbms.triplehao.entity.CustomerAccount">
+        INSERT INTO
+        customer_account(username, password)
+        VALUES
+        (#{username}, #{password})
+    </insert>
+    <select id="searchCustomerAccount" resultType="com.dbms.triplehao.entity.CustomerAccount">
+        SELECT *
+        FROM
+        customer_account
+        WHERE
+        username=#{username}
+    </select>
+    <select id="queryCountCustomer" resultType="int" >
+        SELECT COUNT(*)
+        FROM customer_account;
+    </select>
+</mapper>

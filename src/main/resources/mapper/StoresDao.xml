@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dbms.triplehao.dao.StoreDao">
+    <select id="queryStore" resultType="com.dbms.triplehao.entity.Stores">
+        SELECT *
+        FROM Store
+    </select>
+    <select id="queryStoreById" resultType="com.dbms.triplehao.entity.Stores">
+        SELECT *
+        FROM Store
+        WHERE
+        stores_id=#{storeId}
+    </select>
+    <select id="queryStoreByName" resultType="com.dbms.triplehao.entity.Stores">
+        SELECT *
+        FROM STORE
+        WHERE
+            name LIKE '%#{name}%'
+    </select>
+    <insert id="insertStore" useGeneratedKeys="true" keyProperty="storeId" keyColumn="store_Id" parameterType="com.dbms.triplehao.entity.Stores">
+        INSERT INTO
+        Store(store_id, address, store_manager, region_id)
+        VALUES
+        (#{storeId}, #{address}, #{storeManager}, #{regionId})
+    </insert>
+    <update id="updatedStore" parameterType="com.dbms.triplehao.entity.Stores">
+        UPDATE Store
+        <set>
+            <if test="address!=null">price=#{address},</if>
+            <if test="storeManager!=null">store_manager=#{storeManager},</if>
+        </set>
+        WHERE store_id=#{storeId}
+    </update>
+    <delete id="deleteStore" >
+        DELETE FROM
+        Store
+        WHERE
+        store_id=#{storeId}
+    </delete>
+</mapper>

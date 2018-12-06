@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dbms.triplehao.dao.ProductDao">
+    <select id="queryProduct" resultType="com.dbms.triplehao.entity.Product">
+        SELECT *
+        FROM product
+    </select>
+    <select id="queryProductById" resultType="com.dbms.triplehao.entity.Product">
+        SELECT *
+        FROM product
+        WHERE
+        product_id=#{productId}
+    </select>
+    <select id="queryProductByName" resultType="com.dbms.triplehao.entity.Product">
+        SELECT *
+        FROM product
+        WHERE
+            name LIKE "%"#{name}"%"
+    </select>
+    <select id="queryCountProduct" resultType="int">
+        SELECT COUNT(*)
+        FROM Product;
+    </select>
+    <select id="querySortByPrice" resultType="com.dbms.triplehao.entity.Product">
+        SELECT *
+        FROM product
+        ORDER BY price
+    </select>
+    <select id="querySortByPriceDesc" resultType="com.dbms.triplehao.entity.Product">
+        SELECT *
+        FROM product
+        ORDER BY price DESC
+    </select>
+    <select id="queryForCamera" resultType="com.dbms.triplehao.entity.Product">
+      SELECT *
+      FROM product
+      WHERE
+        category = 'Camera'
+    </select>
+    <select id="queryForHeadphone" resultType="com.dbms.triplehao.entity.Product">
+        SELECT *
+        FROM product
+        WHERE
+            category = 'Headphone'
+    </select>
+    <select id="queryForAccessories" resultType="com.dbms.triplehao.entity.Product">
+        SELECT *
+        FROM product
+        WHERE
+            category = 'Accessories'
+    </select>
+    <select id="queryForCellphone" resultType="com.dbms.triplehao.entity.Product">
+        SELECT *
+        FROM product
+        WHERE
+            category = 'Cell phone'
+    </select>
+    <select id="queryForLaptop" resultType="com.dbms.triplehao.entity.Product">
+        SELECT *
+        FROM product
+        WHERE
+            category = 'Laptop'
+    </select>
+    <select id="queryForTele" resultType="com.dbms.triplehao.entity.Product">
+        SELECT *
+        FROM product
+        WHERE
+            category = 'Television'
+    </select>
+    <select id="queryForTablet" resultType="com.dbms.triplehao.entity.Product">
+        SELECT *
+        FROM product
+        WHERE
+            category = 'Tablet'
+    </select>
+    <insert id="insertProduct" useGeneratedKeys="true" keyProperty="productId" keyColumn="product_id" parameterType="com.dbms.triplehao.entity.Product">
+        INSERT INTO
+        product(name, price, inventory_amount, category, url)
+        VALUES
+        (#{name}, #{price}, #{inventoryAmount}, #{category}, #{url})
+    </insert>
+    <update id="updatedProduct" parameterType="com.dbms.triplehao.entity.Product">
+        UPDATE product
+        <set>
+            <if test="name!=null">name=#{name},</if>
+            <if test="price!=null">price=#{price},</if>
+            <if test="inventoryAmount!=null">inventory_amount=#{inventoryAmount},</if>
+            <if test="category!=null">category=#{category}</if>
+            <if test="url!=null">url=#{url}</if>
+        </set>
+        WHERE product_id=#{productId}
+    </update>
+    <delete id="deleteProduct" >
+        DELETE FROM
+        product
+        WHERE
+        product_id=#{productId}
+    </delete>
+</mapper>

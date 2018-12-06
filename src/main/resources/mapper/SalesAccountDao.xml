@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dbms.triplehao.dao.SalesAccountDao">
+    <!--<select id="querySalesAccount" resultType="com.dbms.triplehao.entity.SalesAccount">-->
+        <!--SELECT *-->
+        <!--FROM salesperson_account-->
+    <!--</select>-->
+
+    <select id="querySalesAccount" resultType="com.dbms.triplehao.entity.SalesAccount">
+        SELECT *
+        FROM salesperson_account
+        WHERE
+        username=#{username} and password = #{password}
+    </select>
+    <select id="searchSalesAccount" resultType="com.dbms.triplehao.entity.SalesAccount">
+        SELECT *
+        FROM salesperson_account
+        WHERE
+        username=#{username}
+    </select>
+    <insert id="insertSalesAccount" useGeneratedKeys="true" keyProperty="empID" keyColumn="emp_id" parameterType="com.dbms.triplehao.entity.SalesAccount">
+        INSERT INTO
+        salesperson_account(username, password)
+        VALUES
+        (#{username}, #{password})
+    </insert>
+    <update id="updatedPassword" parameterType="com.dbms.triplehao.entity.SalesAccount">
+        UPDATE salesperson_account
+        <set>
+            <if test="password!=null">password=#{password},</if>
+            <!--<if test="price!=null">price=#{price},</if>-->
+            <!--<if test="inventoryAmount!=null">inventory_amount=#{inventoryAmount},</if>-->
+            <!--<if test="category!=null">category=#{category}</if>-->
+        </set>
+        WHERE username=#{username}
+    </update>
+    <delete id="deleteSalesAccount" >
+        DELETE FROM
+        salesperson_account
+        WHERE
+        username=#{username}
+    </delete>
+</mapper>

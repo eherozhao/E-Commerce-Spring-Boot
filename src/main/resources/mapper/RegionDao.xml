@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dbms.triplehao.dao.RegionDao">
+    <select id="queryRegion" resultType="com.dbms.triplehao.entity.Region">
+        SELECT *
+        FROM region
+    </select>
+    <select id="queryRegionById" resultType="com.dbms.triplehao.entity.Region">
+        SELECT *
+        FROM region
+        WHERE
+            region_id=#{regionId}
+    </select>
+
+    <insert id="insertRegion" useGeneratedKeys="true" keyProperty="regionId" keyColumn="region_id" parameterType="com.dbms.triplehao.entity.Region">
+        INSERT INTO
+            region(region_name, region_manager)
+        VALUES
+            (#{regionName}, #{regionManager})
+    </insert>
+    <update id="updatedRegion" parameterType="com.dbms.triplehao.entity.Region">
+        UPDATE region
+        <set>
+            <if test="regionName!=null">region_name=#{regionName},</if>
+            <if test="regionManager!=null">region_manager=#{regionManager},</if>
+        </set>
+        WHERE region_id=#{regionId}
+    </update>
+    <delete id="deleteRegion" >
+        DELETE FROM
+            region
+        WHERE
+            region_id=#{regionId}
+    </delete>
+</mapper>
